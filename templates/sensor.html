@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensordata</title>
+</head>
+<body>
+    <h1>Sensordata</h1>
+    {% if data %}
+        <p>Temperatur: {{ data.temperature }}</p>
+        <!-- Övriga sensorfält -->
+    {% else %}
+        <p>Ingen sensordata tillgänglig.</p>
+    {% endif %}
+</body>
+</html>
