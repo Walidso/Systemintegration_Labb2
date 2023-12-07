@@ -68,12 +68,12 @@ def format_datetime_filter(utc_time_str):
     return local_time.strftime('%Y-%m-%d %H:%M:%S') if local_time else 'Ogiltig tid'
 
 # MQTT-inställningar
-MQTT_BROKER_URL = "localhost"  # Byt ut mot din MQTT-brokers adress
-MQTT_BROKER_PORT = 1883        # Byt ut mot din MQTT-brokers port
-MQTT_TOPIC = "sensor/data"     # Byt ut mot önskat MQTT-ämne
+MQTT_BROKER_URL = "localhost"  # MQTT-brokers adress
+MQTT_BROKER_PORT = 1883        # MQTT-brokers port
+MQTT_TOPIC = "sensor/data"     # önskat MQTT-ämne
 
 # Global variabel för att lagra sensor data
-sensor_data = {}
+sensor_data = {'Antal lysnare': 0}
 
 def on_connect(client, userdata, flags, rc):
     print("Ansluten till MQTT-broker med resultatkod " + str(rc))
@@ -82,9 +82,10 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     global sensor_data
     try:
-        # Anta att meddelandet är JSON-formaterat
         data = json.loads(msg.payload.decode())
-        sensor_data = data
+        sensor_data['Antal lysnare'] = data.get('Antal lysnare', 0)
+        print(f"Meddelande mottaget: {data}")  # Logga det mottagna meddelandet
+        print(f"Uppdaterad sensor_data: {sensor_data}")  # Logga den uppdaterade sensor_data
     except json.JSONDecodeError:
         print("Kunde inte avkoda MQTT-meddelandet")
 
@@ -107,7 +108,7 @@ def channel_detail(channel_id):
     channel = next((c for c in SverigesRadio.channels() if c.id == channel_id), None)
     if channel:
         schedule = SverigesRadio.channel_schedule(channel_id, all_programs=False)
-        return render_template('channel_detail.html', channel=channel, schedule=schedule, all_programs=False)
+        return render_template('channel_detail.html', channel=channel, schedule=schedule, all_programs=False, listeners=sensor_data['Antal lysnare'])
     else:
         return "Kanal hittades inte", 404
 
@@ -117,7 +118,7 @@ def channel_all_programs(channel_id):
     channel = next((c for c in SverigesRadio.channels() if c.id == channel_id), None)
     if channel:
         schedule = SverigesRadio.channel_schedule(channel_id, all_programs=True)
-        return render_template('channel_detail.html', channel=channel, schedule=schedule, all_programs=True)
+        return render_template('channel_detail.html', channel=channel, schedule=schedule, all_programs=True, listeners=sensor_data['Antal lysnare'])
     else:
         return "Kanal hittades inte", 404
 

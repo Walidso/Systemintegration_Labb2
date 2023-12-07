@@ -9,8 +9,11 @@ MQTT_TOPIC = "sensor/data"
 
 while True:
     # Skapa simulerad sensordata
-    sensor_value = random.randint(0, 100)  # Exempel på en slumpmässig sensorvärde
-    payload = json.dumps({'temperature': sensor_value})
+    sensor_value = random.randint(100, 1000)  # Exempel på en slumpmässig sensorvärde
+    payload = json.dumps({'Antal lysnare': sensor_value})
+
+    # Skriv ut payload för felsökning
+    print(f"Skickar payload: {payload}")
 
     # Skicka data till MQTT-brokern
     publish.single(MQTT_TOPIC, payload=payload, hostname=MQTT_BROKER, port=MQTT_PORT)

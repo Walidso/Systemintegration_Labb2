@@ -6,8 +6,7 @@
 <body>
     <h1>Sensordata</h1>
     {% if data %}
-        <p>Temperatur: {{ data.temperature }}</p>
-        <!-- Övriga sensorfält -->
+        <p>Antal Lyssnare: {{ data['Antal lysnare'] }}</p>
     {% else %}
         <p>Ingen sensordata tillgänglig.</p>
     {% endif %}
