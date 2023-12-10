@@ -4,14 +4,24 @@
     <meta charset="UTF-8">
     <title>{{ channel.name }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            socket.on('sensor_update', function(data) {
+                document.getElementById('lyssnare').innerText = data.antal_lyssnare;
+            });
+        });
+    </script>
 </head>
 <body>
     <h1>{{ channel.name }}</h1>
+    <a href="{{ channel.siteurl }}" target="_blank">Besök kanalens webbplats</a>
     <a href="{{ channel.liveaudio_url }}" target="_blank">Lyssna Live</a>
 
-    <!-- Antal Lyssnare -->
+    <!-- Antal lyssnare -->
     <div>
-        <h2>Antal Lyssnare: {{ listeners }}</h2>
+        <h2>Antal lyssnare: <span id="lyssnare">{{ listeners }}</span></h2>
     </div>
 
     <h2>Programtablå</h2>
