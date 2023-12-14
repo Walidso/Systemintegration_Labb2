@@ -113,9 +113,35 @@ För att köra detta projekt, följ stegen nedan:
    ```
 
 4. **Starta APISIX med Docker Compose**:
-   - Se till att ha igång Docker
-   - Gå till mappen där du sparade git-klonen från tidigare. Leta upp example mappen och gå in i terminalen därifrån. Skriv in kommandot: docker-compose -p docker-apisix up -d
-   - Gå till APISIX Dashboard (`http://localhost:9000`) och konfigurera rutter och upstreams som beskrivits ovan. (I din Upstream, se till att sätta Hostname: till `Use the domain or IP from Node List`)
+### APISIX Installation och Konfiguration
+
+APISIX är en viktig del av vår projektarkitektur, och vi använder den för att hantera och dirigerar trafik samt tillhandahålla säkerhets- och effektivitetsfunktioner som autentisering, rate limiting och caching.
+
+#### Installationssteg:
+
+1. **Förberedelse**:
+   - Se till att Docker och Docker Compose är installerade på din maskin.
+
+2. **Klona APISIX Docker Repository**:
+   ```bash
+   git clone https://github.com/apache/apisix-docker.git
+   cd apisix-docker
+Starta APISIX med Docker Compose:
+Navigera till den relevanta Docker Compose-filen (beroende på din projektstruktur).
+Kör följande kommando:
+   ```bash
+   docker-compose -p docker-apisix up -d
+   ```
+Konfigurera APISIX:
+APISIX kan konfigureras via sin Dashboard, som tillåter dig att ställa in routes, services, och plugins.
+
+Access APISIX Dashboard:
+
+Navigera till http://localhost:9000 i din webbläsare.
+Konfigurera Routes och Services:
+
+Skapa nya routes och associera dem med de tjänster du vill exponera.
+Konfigurera plugins såsom Basic Auth, rate limiting och caching för att öka säkerheten och effektiviteten i ditt system.
 
 ### Använda Applikationen
 
