@@ -1,0 +1,90 @@
+Här är en uppdaterad och kompletterad version av din README-fil för GitHub-repot:
+
+---
+
+# Systemintegration_Labb2
+
+## Översikt av Systemet
+
+Detta systemintegrationsprojekt demonstrerar samverkan mellan flera komponenter för att skapa ett avancerat API-system. Projektet involverar en simulerad embedded-enhet, en MQTT-broker, en Flask-baserad API-server, en API-gateway (APISIX), och användarinteraktion via webbläsare.
+
+### Komponenter
+
+1. **Simulerad Embedded-Enhet**:
+   - Simulerar insamling och sändning av sensordata (t.ex. antal lyssnare) via MQTT.
+2. **MQTT-Broker (Mosquitto)**:
+   - Hanterar kommunikation och meddelanden mellan den simulerade enheten och Flask-servern.
+3. **Flask API-Server**:
+   - Prenumererar på MQTT-brokern för sensordata.
+   - Serverar data via ett webbgränssnitt och hanterar förfrågningar från Sveriges Radio API.
+4. **API-Gateway (APISIX)**:
+   - Fungar som en mellanhand för inkommande förfrågningar och erbjuder funktioner som autentisering, rate limiting och caching.
+5. **Klient (Webbläsare)**:
+   - Användare interagerar med systemet genom webbläsarförfrågningar.
+
+### Systemets Funktion
+
+- **Dataflöde:** Sensordata flödar från den simulerade enheten till MQTT-brokern, sedan till Flask-servern, som också kan hämta data från Sveriges Radio API.
+- **Användarinteraktion:** Användarförfrågningar går via APISIX till Flask-servern, som returnerar relevant data.
+- **Säkerhet och Effektivitet:** APISIX erbjuder ytterligare funktioner som säkerhetskontroller och effektiv hantering av stora mängder förfrågningar.
+
+## Installation och Körning
+
+### Förberedelser
+
+1. **Klona Repo**:
+   ```sh
+   git clone https://github.com/apache/apisix-docker.git
+   cd apisix-docker
+   git checkout release/apisix-dashboard-3.0.1
+   ```
+
+2. **Installera Beroenden**:
+   ```sh
+   pip install Flask paho-mqtt requests
+   ```
+
+### Starta Komponenterna
+
+1. **Starta Mosquitto**:
+   ```sh
+   mosquitto
+   ```
+
+2. **Kör Flask Server**:
+   ```sh
+   python app.py
+   ```
+
+3. **Kör Simuleringskriptet**:
+   ```sh
+   python Simuleringskript.py
+   ```
+
+4. **Starta APISIX med Docker Compose**:
+   ```sh
+   docker-compose -p docker-apisix up -d
+   ```
+
+### Användning
+
+- Öppna `http://localhost:9080/` i en webbläsare för att interagera med Flask-appen via APISIX.
+- För felsökning, konsultera loggar från Mosquitto, Flask, och APISIX.
+
+## APISIX Konfiguration
+
+APISIX är konfigurerat för att hantera och dirigerar trafik samt tillhandahålla säkerhets- och effektivitetsfunktioner som:
+
+- **Basic Authentication:** Säkerställer autentiserad åtkomst till API:er.
+- **Rate Limiting:** Begränsar antalet förfrågningar en användare kan göra.
+- **Caching:** Minskar belastningen på servern genom att cacha ofta begärda resurser.
+
+### Konfigurera APISIX
+
+Använd APISIX Dashboard för att ställa in routes, services och plugins:
+
+1. Navigera till `http://localhost:9000`.
+2. Skapa en ny route och specificera path, upstream och plugins.
+3. Konfigurera Basic Auth, rate limiting och caching enligt dina behov.
+
+---
