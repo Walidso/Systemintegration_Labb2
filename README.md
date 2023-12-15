@@ -1,4 +1,5 @@
 # Systemintegration_Labb2
+Författare: Pontus Brusewitz & Walid Soboh
 
 **Översikt av Systemet:**
 Systemet består av flera delar som samarbetar för att samla in, vidarebefordra, bearbeta och presentera data:
@@ -88,7 +89,7 @@ För att köra detta projekt, följ stegen nedan:
    git checkout release/apisix-dashboard-3.0.1
    ```
 
-2. **Installera Beroenden**:
+2. **Installera nödvändiga program/paket**:
    - Se till att du har Docker och Docker Compose installerat på din dator.
    - Installera nödvändiga Python-paket för Flask och MQTT:
      ```sh
@@ -113,26 +114,16 @@ För att köra detta projekt, följ stegen nedan:
    ```
 
 4. **Starta APISIX med Docker Compose**:
-### APISIX Installation och Konfiguration
 
 APISIX är en viktig del av vår projektarkitektur, och vi använder den för att hantera och dirigerar trafik samt tillhandahålla säkerhets- och effektivitetsfunktioner som autentisering, rate limiting och caching.
 
-#### Installationssteg:
-
-1. **Förberedelse**:
-   - Se till att Docker och Docker Compose är installerade på din maskin.
-
-2. **Klona APISIX Docker Repository**:
-   ```bash
-   git clone https://github.com/apache/apisix-docker.git
-   cd apisix-docker
-Starta APISIX med Docker Compose:
-Navigera till den relevanta Docker Compose-filen (beroende på din projektstruktur).
-Kör följande kommando:
+   - Se till att ha igång Docker
+   - Gå till mappen där du sparade git-klonen från tidigare. Leta upp example mappen och gå in i terminalen därifrån.
+     Kör följande kommando:
    ```bash
    docker-compose -p docker-apisix up -d
    ```
-Konfigurera APISIX:
+### Konfiguration APISIX
 APISIX kan konfigureras via sin Dashboard, som tillåter dig att ställa in routes, services, och plugins.
 
 Access APISIX Dashboard:
