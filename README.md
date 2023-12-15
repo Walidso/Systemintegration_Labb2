@@ -128,7 +128,7 @@ APISIX kan konfigureras via sin Dashboard, som tillåter dig att ställa in rout
 
 Access APISIX Dashboard:
 
-Navigera till http://localhost:9000 i din webbläsare.
+Navigera till http://localhost:9080 i din webbläsare.
 Konfigurera Routes och Services:
 
 Skapa nya routes och associera dem med de tjänster du vill exponera.
