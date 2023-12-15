@@ -80,14 +80,16 @@ För att köra detta projekt, följ stegen nedan:
 ### Förberedelser
 
 1. **Klona Repo**:
-   ```sh
+   
    Från hemsidan: https://github.com/apache/apisix-docker
    Skriv detta i terminalen dit du vill klona repot:
-   git clone https://github.com/apache/apisix-docker.git
-   
+      ```sh
+      git clone https://github.com/apache/apisix-docker.git
+      ```
    Vi körde även detta kommando för att få tillgång till dasboarden:(se till att den finns med)
-   git checkout release/apisix-dashboard-3.0.1
-   ```
+      ```sh
+      git checkout release/apisix-dashboard-3.0.1
+      ```
 
 2. **Installera nödvändiga program/paket**:
    - Se till att du har Docker och Docker Compose installerat på din dator.
