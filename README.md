@@ -134,6 +134,60 @@ Konfigurera Routes och Services:
 Skapa nya routes och associera dem med de tjänster du vill exponera.
 Konfigurera plugins såsom Basic Auth, rate limiting och caching för att öka säkerheten och effektiviteten i ditt system.
 
+
+
+
+### APISIX Konfigurationer
+
+Efter installationen av APISIX, använd följande konfigurationer för att sätta upp ditt system:
+
+#### Routes och Upstreams
+
+- **Route till Flask API-Server**:
+  - **Path**: `/*
+  - **Upstream URL**: `host.docker.internal:5000`
+  - **Beskrivning**: Denna route dirigerar förfrågningar till Flask API-servern.
+
+#### Plugins
+
+1. **Basic Authentication (basic-auth)**:
+   - **Konfiguration**: Ställ in användarnamn och lösenord för att skydda dina API-rutter. Exempel:
+     - Användarnamn: `admin`
+     - Lösenord: `admin123`
+
+2. **Rate Limiting (limit-count och limit-req)**:
+   - **limit-count**:
+     - **count**: 10
+     - **time_window**: 60 (sekunder)
+     - **Beskrivning**: Begränsar användare till 10 förfrågningar per minut.
+   - **limit-req**:
+     - **rate**: 2
+     - **burst**: 5
+     - **Beskrivning**: Begränsar antalet förfrågningar till 2 per sekund med möjlighet till en burst av 5 förfrågningar.
+
+3. **Proxy Cache (proxy-cache)**:
+   - **cache_ttl**: 30 (sekunder)
+   - **Beskrivning**: Cachar svar i 30 sekunder för att förbättra prestandan.
+
+#### Consumer Konfiguration
+
+- **Consumer Name**: `example_consumer`
+- **Plugins Konfiguration för Consumer**:
+  - **Basic Auth Credentials**:
+    - Användarnamn: `example_user`
+    - Lösenord: `example_password`
+
+### Testning och Validering
+
+- För att testa **Basic Authentication**, använd `curl` med basicauth-header:
+  ```bash
+  curl -u example_user:example_password http://localhost:9080/api/your_endpoint
+  ```
+- Testa **Rate Limiting** genom att göra upprepade förfrågningar till din route och observera när 429 Too Many Requests-felmeddelanden börjar visas.
+- För att verifiera **Proxy Cache**, gör en förfrågan till din API och kontrollera `Age`-headern i svaret för att se om det cachas.
+
+Observera att dessa värden är bara exempel och bör anpassas efter ditt systems krav och trafikmönster. Genom att använda dessa konfigurationer kan du säkerställa att ditt system är väl skyddat och hanterar trafik effektivt.
+
 ### Använda Applikationen
 
 1. **Tillgång via Webbläsare**:
